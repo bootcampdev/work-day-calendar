@@ -1,8 +1,8 @@
-/* body {
+body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   line-height: 1;
-} */
+}
 
 textarea{
   background: transparent;
@@ -70,55 +70,34 @@ textarea{
   transition: all .3s ease-in-out;
 }
 
-body {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	min-height: 100vh;
-	padding: 4rem 0;
-	font-family: -system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+ul {
+  list-style-type: none;
+  padding: 0;
+  /* background-color: white; */
+}
+ 
+ li {
+  height: 50px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
+  background-color: #4e77a7;
+  color: white;
+  font-size: 1.5em;
+  line-height: 1.5;
+} 
+
+li button {
+  float: right;
+  border: none;
+  height: 40px;
+  cursor: pointer;
+  background-color: #0051ff;
+  color: white;
+  font-size: 1em;
 }
 
-table {
-	width: 100%;
-	max-width: 50rem;
-  
-	/* tr:nth-child(even) th {
-		color: #ccc;
-		font-weight: normal;
-	} */
-	
-	th,
-	td {
-    padding: 0.5rem;
-     /* 1rem; */
-	}
-	
-	th {
-		font-weight: normal;
-		border-top: thin dotted #ccc;
-	}
-	
-	td {
-		font-size: 0.8rem;
-		font-weight: bold;
-		line-height: 1.4;
-		border-radius: 0.2rem;
-		transition: opacity 0.3s ease;
-	}
-	
-	td > span {
-		font-size: 0.8em;
-		font-weight: normal;
-		display: block;
-		width: 100%;
-	}
-}
-
-.stage-earth {background-color: #FFA726};
-.stage-mercury {background-color: #9CCC65};
-.stage-venus {background-color: #FF8A65};
-.stage-mars {background-color: #B3E5FC};
-.stage-jupiter {background-color: #81D4FA};
-.stage-saturn {background-color: #26C6DA};
+.eventInput {
+  margin-left: 80px;
+  width: 450;
+} 
