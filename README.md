@@ -20,7 +20,7 @@ The sceduler persist and will be displayed the next time the application is run 
 
 The following demonstrates the application functionality:
 
-![daily work schedule](https://bootcampdev.github.io/work-day-calendar/Develop/index.html)
+https://bootcampdev.github.io/work-day-calendar/Develop/index.html
 
 ## Notes
 
