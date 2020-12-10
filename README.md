@@ -24,7 +24,8 @@ https://bootcampdev.github.io/work-day-calendar/Develop/index.html
 
 ## Notes
 
-Use of Moment.js library is miniamal as it was not needed extensively to work with date and time in this application
+- Use of Moment.js library is miniamal as it was not needed extensively to work with date and time in this application
+- Mantain the file structure as it was presented in the assignment
 
 
 - - -
