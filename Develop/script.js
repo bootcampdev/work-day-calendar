@@ -3,10 +3,16 @@
 // var todoForm = document.querySelector("#todo-form");
 var _hourList = $("#hour-list");
 
+var startHr = 7;  // 7 am 
+var endHr = 25;  // 24 hour format (10pm)
+
 var currentDate = new Date();
 var currentHour24 = currentDate.getHours();
 var currentHour = ((currentDate.getHours()+11) %12 +1);
 var buttonsView = $('#buttons-view');
+
+var mySchedule = [];
+var haveSchedule = false;
 
 var liId;
 
@@ -20,15 +26,45 @@ var mySchedule2 = {
         }
     ]
 }
-var mySchedule = JSON.parse(localStorage.getItem("dailySchedule"));
 
 
+function initSchedule(startTime, EndTime) {
 
-function setupDay() {
+    var hrData = {};
+
+    // if have a schedule don't delete it, just return
+    if (localStorage.getItem("mySchedule") != null) {
+        return;
+    }
+
+    // iniitalize local storage for scheduling 
+    for (var i=startTime; i<EndTime; i++)
+    {
+        var hr12 = ((i+11) %12 +1);
+
+        hrData = {}
+        hrData["hr24"] = i;
+        hrData["hr12"] = hr12;
+        hrData["event"] = "";
+
+        mySchedule.push({"hr24": hrData.hr24, "hr12": hrData.hr12, "event": hrData.event});
+    }
+
+    localStorage.setItem("mySchedule", JSON.stringify(mySchedule));
+}
+
+function setupDay(startTime, endTime) {
     
     var hrData = {};
 
-    for (var i=7; i<25; i++) {
+    // if (localStorage.getItem("dailySchedule") != null) {
+    //     mySchedule = JSON.parse(localStorage.getItem("mySchedule"));
+    //     haveSchedule = true;
+    // }
+
+    mySchedule = JSON.parse(localStorage.getItem("mySchedule"));
+
+    for (var i=startTime; i<endTime; i++) {
 
         var hr12 = ((i+11) %12 +1);
 
@@ -55,12 +91,15 @@ function setupDay() {
             li.className = "present";
         }
          
-         // setup json object to hold today's events
+        // setup json object to hold today's events
 
-         hrData = {}
-         hrData["hr24"] = i;
-         hrData["hr12"] = hr12;
-         hrData["event"] = mySchedule[i-7].event;
+        // hrData = {}
+        // hrData["hr24"] = i;
+        // hrData["hr12"] = hr12;
+        // if (haveSchedule)
+        //     hrData["event"] = mySchedule[i-7].event;
+        // else     
+        //     hrData["event"] = "";       
 
         // not working li
         //----------------
@@ -73,8 +112,9 @@ function setupDay() {
         var inputEvent = document.createElement("input");
         inputEvent.type = "text";
         inputEvent.className =  "eventInput";
-        inputEvent.id =  "eventhr" + hr12;   
-        inputEvent.value = (hrData["event"]);
+        inputEvent.id =  "eventhr" + i; // hr12;   
+        //inputEvent.value = (hrData["event"]);
+        inputEvent.value = (mySchedule[i-7].event);
                   
         li.appendChild(inputEvent);
 
@@ -94,6 +134,7 @@ function setupDay() {
     
         li.appendChild(button);
         _hourList.append(li);
+
         //_hourList.append(button);
         //console.log(hr12);
         //$("#hour-list").append(li)
@@ -103,7 +144,7 @@ function setupDay() {
         //  myHrs.hr = i;
         //  myHrs.event = "vac"
          
-         mySchedule.push({"hr24": hrData.hr24, "hr12": hrData.hr12, "event": hrData.event});
+        //  mySchedule.push({"hr24": hrData.hr24, "hr12": hrData.hr12, "event": hrData.event});
         
 
          console.log("my schedule " + mySchedule[i]);
@@ -127,7 +168,7 @@ _hourList.on("click", ".saveBtn", function(event) {
     console.log(event_loc);
 
     hr = mySchedule[event_loc].hr12;
-    var event_input = $("#eventhr" + hr);
+    var event_input = $("#eventhr" + hrstr);
 
     mySchedule[event_loc].event = event_input.val();
 
@@ -138,7 +179,12 @@ _hourList.on("click", ".saveBtn", function(event) {
     console.log(mySchedule[event_loc]);
 
     // save schedule changes
-    localStorage.setItem("dailySchedule", JSON.stringify(mySchedule));
+    localStorage.clear();
+    localStorage.setItem("mySchedule", JSON.stringify(mySchedule));
 })
 
-setupDay();
+// initialize the schedule
+initSchedule(startHr, endHr);
+
+// load up todays schedule
+setupDay(startHr, endHr);
