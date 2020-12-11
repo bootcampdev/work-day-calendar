@@ -124,10 +124,10 @@
         localStorage.setItem("mySchedule", JSON.stringify(mySchedule));
     })
 
+    $("#currentDay").text(new Date())
 
     // initialize the schedule
     initSchedule(startHr, endHr);
-
 
     // load up todays schedule
     setupDay(startHr, endHr);
